@@ -115,7 +115,7 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
       if (PlatformUtils().isMobile)
         MorePanelItem(
             id: "screen",
-            title: TIM_t("拍摄"),
+            title: 'Foto',
             onTap: (c) {
               _onFeatureTap("screen", c, model, theme);
             },
@@ -136,7 +136,7 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
       if (!PlatformUtils().isWeb)
         MorePanelItem(
             id: "photo",
-            title: TIM_t("照片"),
+            title: 'Atirar',
             onTap: (c) {
               _onFeatureTap(
                 "photo",
@@ -357,41 +357,44 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
 
   _sendImageMessage(TUIChatSeparateViewModel model, TUITheme theme) async {
     try {
-      if (PlatformUtils().isMobile){
-        if(PlatformUtils().isAndroid){
+      if (PlatformUtils().isMobile) {
+        if (PlatformUtils().isAndroid) {
           AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
           if ((androidInfo.version.sdkInt) >= 33) {
             final videos = await Permissions.checkPermission(
-              context,Permission.videos.value,
+              context,
+              Permission.videos.value,
               theme,
             );
             final photos = await Permissions.checkPermission(
-              context,Permission.photos.value,
+              context,
+              Permission.photos.value,
               theme,
             );
-            if(!videos && !photos){
+            if (!videos && !photos) {
               return;
             }
           } else {
             final storage = await Permissions.checkPermission(
-              context, Permission.storage.value,
+              context,
+              Permission.storage.value,
               theme,
             );
-            if(!storage){
+            if (!storage) {
               return;
             }
           }
-        }else{
+        } else {
           final photos = await Permissions.checkPermission(
             context,
             Permission.photos.value,
             theme,
           );
-          if(!photos){
+          if (!photos) {
             return;
           }
         }
-    }
+      }
 
       final convID = widget.conversationID;
       final convType = widget.conversationType;
@@ -463,10 +466,10 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
         return;
       }
       if (!await Permissions.checkPermission(
-            context,
-            Permission.photos.value,
-            theme,
-          )) {
+        context,
+        Permission.photos.value,
+        theme,
+      )) {
         return;
       }
       await Permissions.checkPermission(
@@ -709,35 +712,35 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
             runSpacing: 20,
             children: itemList(model, theme)
                 .map((item) => InkWell(
-                onTap: () {
-                  if (item.onTap != null) {
-                    item.onTap!(context);
-                  }
-                },
-                child: widget.morePanelConfig?.actionBuilder != null
-                    ? widget.morePanelConfig?.actionBuilder!(item)
-                    : SizedBox(
-                  height: 94,
-                  width: 64,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 64,
-                        width: 64,
-                        margin: const EdgeInsets.only(bottom: 4),
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(5))),
-                        child: item.icon,
-                      ),
-                      Text(
-                        item.title,
-                        style: TextStyle(
-                            fontSize: 12, color: theme.darkTextColor),
-                      )
-                    ],
-                  ),
-                )))
+                    onTap: () {
+                      if (item.onTap != null) {
+                        item.onTap!(context);
+                      }
+                    },
+                    child: widget.morePanelConfig?.actionBuilder != null
+                        ? widget.morePanelConfig?.actionBuilder!(item)
+                        : SizedBox(
+                            height: 94,
+                            width: 64,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 64,
+                                  width: 64,
+                                  margin: const EdgeInsets.only(bottom: 4),
+                                  decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: item.icon,
+                                ),
+                                Text(
+                                  item.title,
+                                  style: TextStyle(
+                                      fontSize: 12, color: theme.darkTextColor),
+                                )
+                              ],
+                            ),
+                          )))
                 .toList(),
           ),
         ),
