@@ -10,12 +10,24 @@ class IntlCameraPickerTextDelegate extends CameraPickerTextDelegate {
   /// Tips string above the shooting button before shooting.
   /// 拍摄前确认按钮上方的提示文字
   @override
-  String get shootingTips => TIM_t('轻触拍照，长按摄像');
+  String get shootingTips {
+    final String deviceLocale = TIM_getCurrentDeviceLocale();
+    if (deviceLocale == 'en') {
+      return 'Toque para tirar uma foto. Mantenha pressionado para gravar vídeo.';
+    }
+    return 'Pulsa para hacer una foto. Pulsación larga para grabar vídeo.';
+  }
 
   /// Tips string above the shooting button before shooting.
   /// 拍摄前确认按钮上方的提示文字
   @override
-  String get shootingWithRecordingTips => TIM_t('轻触拍照，长按摄像');
+  String get shootingWithRecordingTips {
+    final String deviceLocale = TIM_getCurrentDeviceLocale();
+    if (deviceLocale == 'en') {
+      return 'Toque para tirar uma foto. Mantenha pressionado para gravar vídeo.';
+    }
+    return 'Pulsa para hacer una foto. Pulsación larga para grabar vídeo.';
+  }
 
   /// Load failed string for item.
   /// 资源加载失败时的字段
